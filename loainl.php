@@ -303,7 +303,7 @@
                                                 
                                                 <td class=" last" style="width: 120px;">
                                                 <!-- xu ly button  -->
-                                                    <span style="font-size: 12px"><a href="#" onclick="return confirm('Bạn có thật sự muốn thay đổi thông tin này?')">Cập nhật</a>|</span>
+                                                    <span style="font-size: 12px"><?php echo "<a href='capnhatloainl.php?id=".$row['loainl_id']."'>Cập nhật</a>|"?></span>
                                                     <span style="font-size: 12px"><?php echo "<a href='xoaloainl.php?id=".$row['loainl_id']."'>Xóa</a>"?></span>
                                                     
                                                 </td>

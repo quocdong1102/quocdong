@@ -199,7 +199,7 @@
                                 <ol class="breadcrumb text-right">
                                     <li><a href="index.html">Trang chủ</a></li>
                                     <li><a href="#">Thành phần dinh dưỡng</a></li>
-                                    <li class="active">Thêm mới</li>
+                                    <li class="active">Cập nhật</li>
                                 </ol>
                             </div>
                         </div>
@@ -218,12 +218,20 @@
 
  
 <div class="col-lg-6">
+                                <?php
+                                    include('connect.php');
+                                    $id=isset($_GET['id']) ? $_GET['id']:'$id';
+                                    $sql = "SELECT * FROM loai_dinh_duong where loai_dinh_duong.loaidd_id='$id' ";
+                                    $result = mysqli_query($con, $sql);
+                                    $row = mysqli_fetch_array($result);
+                                    ?>
                         <div class="card">
                             <div class="card-header"><strong>Thành phần dinh dưỡng</strong></div>
                             <div class="card-body card-block">
-                                <form class="form-horizontal form-label-left input_mask" action="XL_themdd.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
-                                <div class="form-group"><label class=" form-control-label">Tên loại dinh dưỡng</label><input type="text" class="form-control" name="loaidd_ten" required="required" placeholder="Nhập tên loại dinh dưỡng"></div>
-                                <div class="form-group"><label class=" form-control-label">Vai trò</label><textarea name="loaidd_vaitro" rows="9" placeholder="Vai trò của chất dinh dưỡng" class="form-control"></textarea></div>
+                                <form class="form-horizontal form-label-left input_mask" action="XL_capnhatloaidd.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+                                    <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+                                <div class="form-group"><label class=" form-control-label">Tên loại dinh dưỡng</label><input type="text" name="loaidd_ten" placeholder="Nhập tên loại" class="form-control" value="<?php echo $row['loaidd_ten'];  ?>" require=""></div>
+                                <div class="form-group"><label class=" form-control-label">Vai trò</label><input name="loaidd_vaitro" rows="9" class="form-control" value="<?php echo $row['loaidd_vaitro'];  ?>" require=""></input></div>
                                
                             <div class="form-actions form-group"><button type="submit" name="submit" class="btn btn-primary btn-sm">Lưu</button> <button type="reset" class="btn btn-sm btn-danger">Hủy</button></div> 
                             </form>

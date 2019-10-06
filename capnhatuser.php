@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -107,16 +107,16 @@
                     </li>
                    
                     <li class="menu-title">Thành phần dinh dưỡng</li><!-- /.menu-title -->
-                    <li >
+                    <li>
                         <a href="themdinhduong.php"> <i class="menu-icon fa fa-tint"></i> Thêm mới</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="dsdinhduong.php"> <i class="menu-icon fa fa-list"></i> Danh sách TPDD</a>
                     </li>
 
-                    <li class="menu-title">Người dùng</li><!-- /.menu-title -->
-                    <li>
-                        <a href="themuser.php"> <i class="menu-icon fa fa-user-plus"></i> Thêm mới</a>
+                    <li  class="menu-title">Người dùng</li><!-- /.menu-title -->
+                    <li  class="active">
+                        <a href="#"> <i class="menu-icon fa fa-user-plus"></i> Thêm mới</a>
                     </li>
                     <li>
                         <a href="dsuser.php"> <i class="menu-icon fa fa-list"></i> Danh sách người dùng</a>
@@ -189,7 +189,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Thành phần dinh dưỡng</h1>
+                                <h1>Người dùng</h1>
                             </div>
                         </div>
                     </div>
@@ -198,8 +198,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="index.html">Trang chủ</a></li>
-                                    <li><a href="#">Thành phần dinh dưỡng</a></li>
-                                    <li class="active">Danh sách TPDD</li>
+                                    <li><a href="#">Người dùng</a></li>
+                                    <li class="active">Cập nhật</li>
                                 </ol>
                             </div>
                         </div>
@@ -209,95 +209,42 @@
         </div>
         <!-- /#header -->
         <!-- Content -->
-       <div class="content">
-                                    <?php
-                                    $stt=1;
-                                    include('connect.php');
-                                    $sql = "SELECT * FROM loai_dinh_duong ";
+        <div class="content">
+            <!-- Animated -->
+            <div class="animated fadeIn">
+                
+               
+                
 
+
+<div class="col-lg-6">
+                                <?php
+                                    include('connect.php');
+                                    $id=isset($_GET['id']) ? $_GET['id']:'$id';
+                                    $sql = "SELECT * FROM user where user.user_id='$id' ";
                                     $result = mysqli_query($con, $sql);
                                     $row = mysqli_fetch_array($result);
-                
                                     ?>
-            <div class="animated fadeIn">
-                <div class="row">
-
-                    <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Thành phần dinh dưỡng</strong>
-                            </div>
-                            <div class="card-body">
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>STT</th>
-                                            <th>Chất dinh dưỡng</th>
-                                            <th>Vai trò</th>
-                                            <th>Lựa chọn</th>
-                                        </tr>
-                                    </thead>
-                                     <?php
-                                            $stt=1;
-                                            require('connect.php');
-                                             $search = isset($_POST['data'])?$_POST['data']:'';
-                                             $stt=1;
-                                             include('connect.php');
-                                             $sotinmottrang = 7;
-                                             $sql="SELECT *FROM loai_dinh_duong";
-                                             $result = mysqli_query($con,$sql);
-                                             //Tong so tin trong bang
-                                             $tongsotin = mysqli_num_rows($result);
-                                             //Tim trang hien tai
-                                             $tranghientai = isset($_GET['page']) ? $_GET['page'] : 1;           
-                                             //Tinh so trang 
-                                             $sotrang = ceil($tongsotin / $sotinmottrang);
-                                             if ($tranghientai > $sotrang)
-                                             {
-                                                  $tranghientai = $sotrang;
-                                               }
-                                               else if ($tranghientai < 1){
-                                               $tranghientai = 1;
-                                               }
-                                               //xu ly trang click trang
-                                               $start = ($tranghientai - 1) * $sotinmottrang;
-                                               if($tongsotin > 0){
-                                               $result = mysqli_query($con, "SELECT * FROM loai_dinh_duong");
-                                              
-                                               while ($row = mysqli_fetch_array($result)){                                     
-                                            ?>
-                                        <tbody>
-                                            <tr>
-                                            <?php   $number = $stt++ ?>
-                                                <td style="width: 50px;"><?php echo $number?></td>
-                                                <td style="width: 190px;"><?php echo $row['loaidd_ten']; ?></td>
-                                                <td><?php echo $row['loaidd_vaitro'];?></td>
-                                                
-                                                <td class=" last" style="width: 120px;">
-                                                <!-- xu ly button  -->
-                                                    <span style="font-size: 12px"><a href="#" onclick="return confirm('Bạn có thật sự muốn thay đổi thông tin này?')">Cập nhật</a>|</span>
-                                                    <span style="font-size: 12px"><?php echo "<a href='xoadd.php?id=".$row['loaidd_id']."'>Xóa</a>"?></span>
-                                                    
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <?php
-                                            }
-                                        }else{
-                                            $con->close();
-                                        }
-                                        ?>
-                                </table>
+                            <div class="card-header"><strong>Người dùng</strong></div>
+                            <div class="card-body card-block">
+                                <form class="form-horizontal form-label-left input_mask" action="XL_capnhatuser.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+                                <div class="form-group"><label  class=" form-control-label">Họ tên</label><input type="text" name="user_ten" placeholder="Nhập họ tên" class="form-control" value="<?php echo $row['user_ten'];  ?>"></div>
+                                 <div class="form-group"><label class=" form-control-label">Ngày sinh</label><input type="date" name="user_namsinh" class="form-control" value="<?php echo $row['user_namsinh'];  ?>"></div>
+                                <div class="form-group"><label class=" form-control-label">Địa chỉ</label><input type="text" name="user_diachi" placeholder="Nhập địa chỉ" class="form-control" value="<?php echo $row['user_diachi'];  ?>"></div>
+                                <div class="form-group"><label class=" form-control-label">Số điện thoại</label><input type="text" name="user_sdt" placeholder="Nhập số điện thoại" class="form-control" value="<?php echo $row['user_sdt'];  ?>"></div>
+                                <div class="form-group"><label class=" form-control-label">Email</label><input type="text" name="user_email" placeholder="Nhập email" class="form-control" value="<?php echo $row['user_email'];  ?>"></div>
+                                <div class="form-group"><label class=" form-control-label">Mật khẩu</label><input type="text" name="user_mk" placeholder="Nhập mật khẩu" class="form-control" value="<?php echo $row['user_mk'];  ?>"></div>
+                                <div class="form-group"><label class=" form-control-label">Hình ảnh</label><input type="file" name="user_hinhanh" class="form-control"> <?php echo "<img src='".$row['user_hinhanh']."'>"?></input></div>
                                 
+                               
+                            <div class="form-actions form-group"><button name="submit" type="submit" class="btn btn-primary btn-sm">Lưu</button> <button type="submit" class="btn btn-sm btn-danger">Hủy</button>
+                            </div> 
+                                </form>
                             </div>
                         </div>
+
                     </div>
-
-
-                </div>
-
-            </div><!-- .animated -->
-        </div><!-- .content -->
 
 
 

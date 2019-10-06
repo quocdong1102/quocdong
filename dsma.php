@@ -212,89 +212,104 @@
         <div class="content">
             <!-- Animated -->
             <div class="animated fadeIn">
-                
-               
-                
+                <div class="content">
 
+                                    <?php
+                                    $stt=1;
+                                    include('connect.php');
+                                    $sql = "SELECT DISTINCT mon_an.ma_id, mon_an.ma_ten, loai_mon_an.loaima_ten FROM mon_an, monan_mua, monan_suckhoe, monan_vungmien, monan_thoidiem, loai_mon_an WHERE mon_an.ma_id=monan_mua.ma_id and mon_an.ma_id=monan_suckhoe.ma_id and mon_an.ma_id=monan_vungmien.ma_id and mon_an.ma_id=monan_thoidiem.ma_id and mon_an.loaima_id=loai_mon_an.loaima_id";
 
-<div class="col-lg-6">
+                                    $result = mysqli_query($con, $sql);
+                                    $row = mysqli_fetch_array($result);
+                
+                                    ?> 
+            <!-- Animated -->
+            <div class="animated fadeIn">
+            <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header"><strong>Món ăn</strong></div>
-                            <div class="card-body card-block">
-                                <div class="form-group"><label for="tenma" class=" form-control-label">Tên món ăn</label><input type="text" id="tenma" placeholder="Nhập tên món ăn" class="form-control"></div>
-                                <div class="form-group"><label for="kcal" class=" form-control-label">KCAL</label><input type="text" id="kcal" placeholder="Nhập kcal" class="form-control"></div>
-                                <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Loại món</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select name="select" id="select" class="form-control">
-                                                <option value="0">Thuộc loại món ăn</option>
-                                                <option value="1">a</option>
-                                                <option value="2">b</option>
-                                            </select>
-                                        </div>
-                                </div>
-                                <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Vùng miền</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select name="select" id="select" class="form-control">
-                                                <option value="0">Thuộc vùng miền</option>
-                                                <option value="1">Cả Nước</option>
-                                                <option value="2">Miền Bắc</option>
-                                                <option value="3">Miền Trung</option>
-                                                <option value="4">Miền Nam</option>
-                                                <option value="5">Nước Ngoài</option>
-                                            </select>
-                                        </div>
-                                </div>
-                                <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Độ tuổi phù hợp</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select name="select" id="select" class="form-control">
-                                                <option value="1">Mọi độ tuổi</option>
-                                                <option value="2">Trẻ em dưới 1 tuổi</option>
+                            <div class="card-header">
+                                <strong class="card-title">Danh sách món ăn</strong>
+                            </div>
+                            <div class="card-body">
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên món ăn</th>
+                                            <th>Loại</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                     <?php 
+                                            $stt=1;
+                                            require('connect.php');
+                                             $search = isset($_POST['data'])?$_POST['data']:'';
+                                             $stt=1;
+                                             include('connect.php');
+                                             $sotinmottrang = 7;
+                                             $sql="SELECT DISTINCT mon_an.ma_id, mon_an.ma_ten, loai_mon_an.loaima_ten FROM mon_an, monan_mua, monan_suckhoe, monan_vungmien, monan_thoidiem, loai_mon_an WHERE mon_an.ma_id=monan_mua.ma_id and mon_an.ma_id=monan_suckhoe.ma_id and mon_an.ma_id=monan_vungmien.ma_id and mon_an.ma_id=monan_thoidiem.ma_id and mon_an.loaima_id=loai_mon_an.loaima_id";
+                                             $result = mysqli_query($con,$sql);
+                                             //Tong so tin trong bang
+                                             $tongsotin = mysqli_num_rows($result);
+                                             //Tim trang hien tai
+                                             $tranghientai = isset($_GET['page']) ? $_GET['page'] : 1;           
+                                             //Tinh so trang 
+                                             $sotrang = ceil($tongsotin / $sotinmottrang);
+                                             if ($tranghientai > $sotrang)
+                                             {
+                                                  $tranghientai = $sotrang;
+                                               }
+                                               else if ($tranghientai < 1){
+                                               $tranghientai = 1;
+                                               }
+                                               //xu ly trang click trang
+                                               $start = ($tranghientai - 1) * $sotinmottrang;
+                                               if($tongsotin > 0){
+                                               $result = mysqli_query($con, "SELECT DISTINCT mon_an.ma_id, mon_an.ma_ten, loai_mon_an.loaima_ten FROM mon_an, monan_mua, monan_suckhoe, monan_vungmien, monan_thoidiem, loai_mon_an WHERE mon_an.ma_id=monan_mua.ma_id and mon_an.ma_id=monan_suckhoe.ma_id and mon_an.ma_id=monan_vungmien.ma_id and mon_an.ma_id=monan_thoidiem.ma_id and mon_an.loaima_id=loai_mon_an.loaima_id");
+                                              
+                                               while ($row = mysqli_fetch_array($result)){                                     
+                                             ?> 
+                                        <tbody>
+                                            <tr>
+                                            <?php   $number = $stt++ ?>
+                                                <td style="width: 50px;"><?php echo $number?></td>
+                                                <td><?php echo $row['ma_ten']; ?></td>
+                                                <td><?php echo $row['loaima_ten'];?></td>
+                                               
                                                 
-                                            </select>
-                                        </div>
-                                </div>
-                                <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Sức khỏe phù hợp</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select name="select" id="select" class="form-control">
-                                                <option value="1">Mọi đối tượng</option>
-                                                <option value="2">Ăn kiêng</option>
-                                                <option value="3">Tốt cho tim mạch</option>
-                                                <option value="4">Giảm cân</option>
-                                                <option value="5">Tăng cân</option>
-                                                <option value="6">Phụ nữ mang thai</option>
-                                                <option value="7">Phụ nữ sau khi sinh</option>
-                                            </select>
-                                        </div>
-                                </div>
-                                <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Thời điểm</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select name="select" id="select" class="form-control">
-                                                <option value="1">Cả ngày</option>
-                                                <option value="2">Ăn sáng</option>
-
-                                                
-                                            </select>
-                                        </div>
-                                </div>
-                               
-
-                                
-                                     <div class="form-group"><label for="hinhanh" class=" form-control-label">Hình ảnh</label><input type="file" class="form-control"></div>
-                                    
-                                </div>
-                            <div class="form-actions form-group"><button type="submit" class="btn btn-success btn-sm">Lưu</button> <button type="submit" class="btn btn-sm btn-danger">Hủy</button></div> 
-                            
+                                                <td class=" last" style="width: 160px;">
+                                                <!-- xu ly button  -->
+                                                    <span style="font-size: 12px"><?php echo "<a href='capnhatma.php?id=".$row['ma_id']."'>Cập nhật</a>|"?></span>
+                                                    <span style="font-size: 12px"><?php echo "<a href='chitietma.php?ma_id=".$row['ma_id']."'>Chi tiết</a>|"?></span>
+                                                    <span style="font-size: 12px"><?php echo "<a href='xoama.php?id=".$row['ma_id']."'>Xóa</a>"?></span>
+                                                    
+                                                    
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <?php
+                                            }
+                                        }else{
+                                            $con->close();
+                                        }
+                                        ?>
+                                </table>
                             </div>
                         </div>
-
                     </div>
 
 
+                </div>
+                
+
+
+
+            </div>
+
+        </div>
 
 
 

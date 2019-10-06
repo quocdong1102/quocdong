@@ -102,12 +102,12 @@
                     <li>
                         <a href="themnl.php"> <i class="menu-icon fa fa-lemon-o"></i> Thêm mới</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="dsnl.php"> <i class="menu-icon fa fa-list"></i> Danh sách nguyên liệu</a>
                     </li>
                    
                     <li class="menu-title">Thành phần dinh dưỡng</li><!-- /.menu-title -->
-                    <li class="active">
+                    <li>
                         <a href="themdinhduong.php"> <i class="menu-icon fa fa-tint"></i> Thêm mới</a>
                     </li>
                     <li>
@@ -189,7 +189,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Thành phần dinh dưỡng</h1>
+                                <h1>Món ăn</h1>
                             </div>
                         </div>
                     </div>
@@ -198,8 +198,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="index.html">Trang chủ</a></li>
-                                    <li><a href="#">Thành phần dinh dưỡng</a></li>
-                                    <li class="active">Thêm mới</li>
+                                    <li><a href="#">Món ăn</a></li>
+                                    <li class="active">Chi tiết</li>
                                 </ol>
                             </div>
                         </div>
@@ -210,28 +210,165 @@
         <!-- /#header -->
         <!-- Content -->
         <div class="content">
-            <!-- Animated -->
-            <div class="animated fadeIn">
-                
+            <div class="col-md-12" style="background-color: #fff;">
+            <div class="list-group mytext_rightmenu_size my-1">
+                <div class="a">
+            <?php  
+                include ('connect.php');
+                $ma_id = $_GET['ma_id'];
+                $sql="SELECT * FROM mon_an, monan_mua, monan_suckhoe, monan_vungmien, monan_thoidiem, loai_mon_an, vung_mien, mua, suc_khoe, thoi_diem, do_tuoi WHERE mon_an.ma_id=monan_mua.ma_id and mon_an.ma_id=monan_suckhoe.ma_id and mon_an.ma_id=monan_vungmien.ma_id and mon_an.ma_id=monan_thoidiem.ma_id and mon_an.loaima_id=loai_mon_an.loaima_id and monan_vungmien.vm_id=vung_mien.vm_id and monan_mua.mua_id=mua.mua_id and monan_suckhoe.sk_id=suc_khoe.sk_id and monan_thoidiem.td_id=thoi_diem.td_id and mon_an.dotuoi_id=do_tuoi.dotuoi_id and mon_an.ma_id='$ma_id'";
+
+                $result=mysqli_query($con,$sql);
+                $row=mysqli_fetch_array($result);
+                   
+            ?>
+            <div id="noidung" style="width:100%; height: auto; "> 
+                <h4 style="margin-top:10px;  margin-left:60px; font-weight: bold; font-size:26px;"> <?php echo $row['ma_ten'];?> </h4>
+                <!-- <br/> -->
+                <hr>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="col-md-4 col-sm-8 pull-left">
+                                <div id="ma_hinhanh" style="height:auto; margin-left:30px; width:auto"> 
+                                   <?php echo "<img src='".$row['ma_hinhanh']."'>"?>
+                                    <!-- <img src="hinhanh/anh20.jpg"> -->
+                                </div>
+                                <ul class="info" style="margin-left:30px; font-size:17px;">
+                                    
+                                    <a href="dsma.php"><i class="fa fa-arrow-left pull-right"> Trở về trang trước</i></a>
+                                </ul>
+                                
+                            </div>
+                            <div class="col-md-8 col-sm-8 pull-right ">
+                                <div class="table-responsive">
+                                    <table >
+                                        <tr>
+                                            <th>Loại: </th>
+                                            <td width="1200px"><?php echo $row['loaima_ten'];?></td>
+                                        </tr>
+                                        <tr>
+                                            <th width="40%">KCAL: </th>
+                                            <td> <?php echo $row['ma_kcal'];?> </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Vùng miền: </th>
+                                            <td>
+                                                <?php
+                                                            $id = $row['ma_id'];
+                                                            $sql1="SELECT * FROM mon_an, monan_vungmien, vung_mien where mon_an.ma_id=monan_vungmien.ma_id and monan_vungmien.vm_id=vung_mien.vm_id";
+                                                            $result1 = mysqli_query($con,$sql1);
+                                                            while($data=mysqli_fetch_array($result1)){
+                                                                if($id === $data['ma_id']){
+                                                                    echo  "-";
+                                                                    echo "&nbsp";
+                                                                    echo "&nbsp";
+                                                                    echo $data['vm_ten'];
+                                                                    echo "&nbsp";
+                                                                    echo "&nbsp";
+                                                                    
+
+                                                                    
+                                                                }
+                                                            }
+                                                        ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mùa: </th>
+                                            <td>
+                                                <?php
+                                                            $id = $row['ma_id'];
+                                                            $sql1="SELECT * FROM mon_an, monan_mua, mua where mon_an.ma_id=monan_mua.ma_id and monan_mua.mua_id=mua.mua_id";
+                                                            $result1 = mysqli_query($con,$sql1);
+                                                            while($data=mysqli_fetch_array($result1)){
+                                                                if($id === $data['ma_id']){
+                                                                    echo  "-";
+                                                                    echo "&nbsp";
+                                                                    echo "&nbsp";
+                                                                    echo $data['mua_ten'];
+                                                                    echo "&nbsp";
+                                                                    echo "&nbsp";
+                                                                    
+
+                                                                    
+                                                                }
+                                                            }
+                                                        ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Độ tuổi phù hợp: </th>
+                                            <td> <?php echo $row['dotuoi_tuoi'];?></td>
+                                        </tr>
+                                         <tr>
+                                            <th>Sức khỏe: </th>
+                                            <td>
+                                                <?php
+                                                            $id = $row['ma_id'];
+                                                            $sql1="SELECT * FROM mon_an, monan_suckhoe, suc_khoe where mon_an.ma_id=monan_suckhoe.ma_id and monan_suckhoe.sk_id=suc_khoe.sk_id";
+                                                            $result1 = mysqli_query($con,$sql1);
+                                                            while($data=mysqli_fetch_array($result1)){
+                                                                if($id === $data['ma_id']){
+                                                                    echo  "<br> ";
+                                                                    echo "&nbsp";
+                                                                    echo $data['sk_loaisk'];
+                                                                    echo "&nbsp";
+                                                                    
+
+                                                                    
+                                                                }
+                                                            }
+                                                        ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Thời điểm phù hợp: </th>
+                                            <td> 
+                                                <?php
+                                                            $id = $row['ma_id'];
+                                                            $sql1="SELECT * FROM mon_an, monan_thoidiem, thoi_diem where mon_an.ma_id=monan_thoidiem.ma_id and monan_thoidiem.td_id=thoi_diem.td_id";
+                                                            $result1 = mysqli_query($con,$sql1);
+                                                            while($data=mysqli_fetch_array($result1)){
+                                                                if($id === $data['ma_id']){
+                                                                    
+                                                                    echo $data['td_ten'];
+                                                                    echo "&nbsp";
+                                                                    echo "&nbsp";
+                                                                    echo  "-";
+                                                                    
+                                                                    echo "&nbsp";
+                                                                    echo "&nbsp";
+                                                                    
+
+                                                                    
+                                                                }
+                                                            }
+                                                        ?>
+                                            </td>
+                                        </tr>
+                                          
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+                                   
+        </div><!-- .content -->  
                
                 
 
- 
-<div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header"><strong>Thành phần dinh dưỡng</strong></div>
-                            <div class="card-body card-block">
-                                <form class="form-horizontal form-label-left input_mask" action="XL_themdd.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
-                                <div class="form-group"><label class=" form-control-label">Tên loại dinh dưỡng</label><input type="text" class="form-control" name="loaidd_ten" required="required" placeholder="Nhập tên loại dinh dưỡng"></div>
-                                <div class="form-group"><label class=" form-control-label">Vai trò</label><textarea name="loaidd_vaitro" rows="9" placeholder="Vai trò của chất dinh dưỡng" class="form-control"></textarea></div>
-                               
-                            <div class="form-actions form-group"><button type="submit" name="submit" class="btn btn-primary btn-sm">Lưu</button> <button type="reset" class="btn btn-sm btn-danger">Hủy</button></div> 
-                            </form>
-                            
-                            </div>
-                        </div>
 
-                    </div>
+
+
+
 
 
 

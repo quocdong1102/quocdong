@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="css/select2.min.css">
+    <link rel="stylesheet" href="css/select2-bootstrap.css">
+    
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
@@ -67,16 +70,79 @@
     <link href="fSelect.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 <script src="fSelect.js"></script>
+<script src="js/select2.min.js"></script>
 <script>
 (function($) {
     $(function() {
-   $('.multi-select-dd').fSelect({
-    placeholder: 'Chọn ',
-    numDisplayed: 4,
-    overflowText: '{n} selected',
-    searchText: 'Tìm ',
-    showSearch: true
-});
+        $('.select2-vmid').select2({
+            theme: "bootstrap" ,
+            placeholder: {
+                id: '1', // the value of the option
+                text: 'Cả nước'
+            }
+        }); 
+    });
+})(jQuery);
+
+(function($) {
+    $(function() {
+        $('.select2-muaid').select2({
+            theme: "bootstrap" ,
+            placeholder: {
+                id: '1', // the value of the option
+                text: 'Cả năm'
+            }
+        }); 
+    });
+})(jQuery);
+
+(function($) {
+    $(function() {
+        $('.select2-skid').select2({
+            theme: "bootstrap" ,
+            placeholder: {
+                id: '1', // the value of the option
+                text: 'Mọi đối tượng'
+            }
+        }); 
+    });
+})(jQuery);
+
+(function($) {
+    $(function() {
+        $('.select2-tdid').select2({
+            theme: "bootstrap" ,
+            placeholder: {
+                id: '1', // the value of the option
+                text: 'Cả ngày'
+            }
+        }); 
+    });
+})(jQuery);
+
+(function($) {
+    $(function() {
+        $('.multi-select-dd').fSelect({
+            placeholder: 'Chọn ',
+            numDisplayed: 4,
+            overflowText: '{n} selected',
+            searchText: 'Tìm ',
+            showSearch: true
+        });
+    });
+})(jQuery);
+(function($) {
+    $(function() {
+        $('#vm_id').on('select2:select', function (e) {
+          console.log($(this).val());
+        });
+    });
+})(jQuery);
+(function($) {
+    $(function() {
+        $('#vm_id').on('select2:unselect', function (e) {
+          console.log($(this).val());
+        });
     });
 })(jQuery);
 </script>
@@ -246,6 +312,7 @@
                                         <div class="col-12 col-md-9">
                                             <select name="loaima_id" class="form-control" required="" />
                                               <option value="">Chọn loại món ăn</option>
+                                              <a href="">Thêm món ăn khác</a>
                                               <?php
                                                 include('connect.php');
                                                 $sql = "SELECT * FROM loai_mon_an";
@@ -258,35 +325,47 @@
                                         </div>
                                 </div>
                                 <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Vùng miền</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select class="multi-select-dd" multiple="multiple" name='vm_id[]' required="" />
-                                          <?php
-                                            include('connect.php');
-                                            $sql="SELECT * FROM vung_mien ";
-                                            $result = mysqli_query($con,$sql);
-                                            while($row=mysqli_fetch_array($result)){
-                                                echo"<option value='".$row['vm_id']."'>".$row['vm_ten']."</option>";
-                                            }
-                                            ?>
-                                          </select>
-                                        </div>
+                                     <div class="col col-md-6"><label for="select" class=" form-control-label">Vùng miền</label></div>
+                                     
+                                                <div class="col-12 col-md-9">
+                                                    <select class="select2-vmid  form-control " multiple="multiple" name='vm_id[]'  id="vm_id" />
+                                                      <?php
+                                                        include('connect.php');
+                                                        $sql="SELECT * FROM vung_mien ";
+                                                        $result = mysqli_query($con,$sql);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                            echo"<option   value='".$row['vm_id']."'>".$row['vm_ten']."</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                        
+                                                </div>
+                                        
+                                        <button type="button" class="btn btn-info btn-lg vung_mien" data-toggle="modal" data-target="#myModal">+</button></td></tr>
+     
                                 </div>
-                                 <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Mùa</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select class="multi-select-dd" multiple="multiple" name='mua_id[]' required="" />
-                                          <?php
-                                            include('connect.php');
-                                            $sql="SELECT * FROM mua ";
-                                            $result = mysqli_query($con,$sql);
-                                            while($row=mysqli_fetch_array($result)){
-                                                echo"<option value='".$row['mua_id']."'>".$row['mua_ten']."</option>";
-                                            }
-                                            ?>
-                                          </select>
-                                        </div>
+
+                                <div class="row form-group">
+                                     <div class="col col-md-6"><label for="select" class=" form-control-label">Mùa</label></div>
+                                     
+                                                <div class="col-12 col-md-9">
+                                                    <select class="select2-muaid  form-control " multiple="multiple" name='mua_id[]'  id="mua_id" />
+                                                      <?php
+                                                        include('connect.php');
+                                                        $sql="SELECT * FROM mua ";
+                                                        $result = mysqli_query($con,$sql);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                            echo"<option   value='".$row['mua_id']."'>".$row['mua_ten']."</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                        
+                                                </div>
+                                        
+                                        <button type="button" class="btn btn-info btn-lg mua" data-toggle="modal" data-target="#myModal1">+</button>
+     
                                 </div>
+                                 
                                 <div class="row form-group">
                                         <div class="col col-md-6"><label for="select" class=" form-control-label">Độ tuổi phù hợp</label></div>
                                         <div class="col-12 col-md-9">
@@ -303,42 +382,53 @@
                                             </select> 
                                         </div>
                                 </div>
+                                
                                 <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Sức khỏe phù hợp</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select class="multi-select-dd" multiple="multiple" name='sk_id[]' required="" />
-                                          <?php
-                                            include('connect.php');
-                                            $sql1="SELECT * FROM suc_khoe ";
-                                            $result1 = mysqli_query($con,$sql1);
-                                            while($row=mysqli_fetch_array($result1)){
-                                                echo"<option value='".$row['sk_id']."'>".$row['sk_loaisk']."</option>";
-                                            }
-                                            ?>
-                                          </select>
-                                        </div>
+                                     <div class="col col-md-6"><label for="select" class=" form-control-label">Sức khỏe</label></div>
+                                     
+                                                <div class="col-12 col-md-9">
+                                                    <select class="select2-skid  form-control " multiple="multiple" name='sk_id[]'  id="sk_id" />
+                                                      <?php
+                                                        include('connect.php');
+                                                        $sql="SELECT * FROM suc_khoe ";
+                                                        $result = mysqli_query($con,$sql);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                            echo"<option   value='".$row['sk_id']."'>".$row['sk_loaisk']."</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                        
+                                                </div>
+                                        
+                                        <button type="button" class="btn btn-info btn-lg suc_khoe" data-toggle="modal" data-target="#myModal2">+</button>
                                 </div>
-                               <div class="row form-group">
-                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Thời điểm phù hợp</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <select class="multi-select-dd" multiple="multiple" name='td_id[]' required="" />
-                                          <?php
-                                            include('connect.php');
-                                            $sql1="SELECT * FROM thoi_diem ";
-                                            $result1 = mysqli_query($con,$sql1);
-                                            while($row=mysqli_fetch_array($result1)){
-                                                echo"<option value='".$row['td_id']."'>".$row['td_ten']."</option>";
-                                            }
-                                            ?>
-                                          </select>
-                                        </div>
+
+                                <div class="row form-group">
+                                     <div class="col col-md-6"><label for="select" class=" form-control-label">Thời điểm</label></div>
+                                     
+                                                <div class="col-12 col-md-9">
+                                                    <select class="select2-tdid  form-control " multiple="multiple" name='td_id[]'  id="td_id" />
+                                                      <?php
+                                                        include('connect.php');
+                                                        $sql="SELECT * FROM thoi_diem ";
+                                                        $result = mysqli_query($con,$sql);
+                                                        while($row=mysqli_fetch_array($result)){
+                                                            echo"<option   value='".$row['td_id']."'>".$row['td_ten']."</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                        
+                                                </div>
+                                        
+                                        <button type="button" class="btn btn-info btn-lg suc_khoe" data-toggle="modal" data-target="#myModal3">+</button>
                                 </div>
+                               
                                
 
                                 
-                                     <div class="form-group"><label class=" form-control-label">Hình ảnh</label><input type="file" name="ma_hinhanh" class="form-control"></div>
-                                    <input type="hidden" name="submit">
+                                     <div class="form-group"><label class=" form-control-label">Hình ảnh</label><input type="file" name="ma_hinhanh" multiple  accept="image/*" class="form-control"></div>
                                 </div>
+                                
                             <div class="form-actions form-group"><button type="submit" class="btn btn-primary btn-sm">Lưu</button> <button type="submit" class="btn btn-sm btn-danger">Hủy</button></div> 
                            </form> 
                             </div>
@@ -350,8 +440,115 @@
 
 
 
+                    <form class="form-horizontal form-label-left input_mask" action="XL_themvm.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thêm vùng miền</h4>
+        </div>
+        <div class="modal-body">
+       
+          <div class="form-group"><label class=" form-control-label">Vùng miền</label><input type="text" name="vm_ten" placeholder="Nhập tên vùng miền mới" class="form-control"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="submit" class="btn btn-primary btn-sm" >Lưu</button>
+          <button type="submit" class="btn btn-sm" data-dismiss="modal">Hủy</button>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</form>
 
 
+
+
+<form class="form-horizontal form-label-left input_mask" action="XL_themmua.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thêm mùa</h4>
+        </div>
+        <div class="modal-body">
+       
+          <div class="form-group"><label class=" form-control-label">Mùa</label><input type="text" name="mua_ten" placeholder="Nhập mùa mới" class="form-control"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="submit" class="btn btn-primary btn-sm" >Lưu</button>
+          <button type="submit" class="btn btn-sm" data-dismiss="modal">Hủy</button>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</form>
+
+
+
+
+<form class="form-horizontal form-label-left input_mask" action="XL_themsk.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thêm loại sức khỏe</h4>
+        </div>
+        <div class="modal-body">
+       
+          <div class="form-group"><label class=" form-control-label">Loại sức khỏe</label><input type="text" name="sk_loaisk" placeholder="Nhập loại mới" class="form-control"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="submit" class="btn btn-primary btn-sm" >Lưu</button>
+          <button type="submit" class="btn btn-sm" data-dismiss="modal">Hủy</button>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</form>
+
+
+
+
+
+<form class="form-horizontal form-label-left input_mask" action="XL_themtd.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+  <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thêm thời điểm</h4>
+        </div>
+        <div class="modal-body">
+       
+          <div class="form-group"><label class=" form-control-label">Thời điểm</label><input type="text" name="td_ten" placeholder="Nhập thời điểm mới" class="form-control"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="submit" class="btn btn-primary btn-sm" >Lưu</button>
+          <button type="submit" class="btn btn-sm" data-dismiss="modal">Hủy</button>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</form>
 
 
 

@@ -199,7 +199,7 @@
                                 <ol class="breadcrumb text-right">
                                     <li><a href="index.html">Trang chủ</a></li>
                                     <li><a href="#">Nguyên liệu</a></li>
-                                    <li class="active">Danh sách</li>
+                                    <li class="active">Chi tiết</li>
                                 </ol>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
             <?php  
                 include ('connect.php');
                 $nl_id = $_GET['nl_id'];
-                $sql="SELECT *FROM nguyen_lieu, don_vi_tinh, loai_nguyen_lieu where nguyen_lieu.nl_id='$nl_id' and nguyen_lieu.dvt_id=don_vi_tinh.dvt_id and nguyen_lieu.loainl_id=loai_nguyen_lieu.loainl_id";
+                $sql="SELECT *FROM nguyen_lieu, don_vi_tinh, loai_nguyen_lieu, chitiet_nguyenlieu where nguyen_lieu.nl_id='$nl_id' and chitiet_nguyenlieu.dvt_id=don_vi_tinh.dvt_id and nguyen_lieu.loainl_id=loai_nguyen_lieu.loainl_id";
 
                 $result=mysqli_query($con,$sql);
                 $row=mysqli_fetch_array($result);
@@ -231,7 +231,7 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="col-md-4 col-sm-8 pull-left">
                                 <div id="nl_hinhanh" style="height:auto; margin-left:30px; width:auto"> 
-                                    <img src="../images/<?php echo $row['nl_hinhanh'];?>" style="height: 250px; width:270px">
+                                    <?php echo "<img src='".$row['nl_hinhanh']."'>"?>
                                     <!-- <img src="hinhanh/anh20.jpg"> -->
                                 </div>
                                 <ul class="info" style="margin-left:30px; font-size:17px;">
@@ -249,7 +249,7 @@
                                         </tr>
                                         <tr>
                                             <th width="70%">Khối lượng: </th>
-                                            <td> <?php echo $row['nl_khoiluong'];?> </td>
+                                            <td> <?php echo $row['khoi_luong'];?> </td>
                                         </tr>
                                         <tr>
                                             <th>Đơn vị tính: </th>
@@ -257,27 +257,27 @@
                                         </tr>
                                         <tr>
                                             <th>Chất đạm: </th>
-                                            <td> <?php echo $row['nl_chatdam'];?></td>
+                                            <td> <?php echo $row['chat_dam'];?></td>
                                         </tr>
                                         <tr>
                                             <th>Chất béo: </th>
-                                            <td> <?php echo $row['nl_chatbeo'];?></td>
+                                            <td> <?php echo $row['chat_beo'];?></td>
                                         </tr>
                                          <tr>
                                             <th>Chất xơ: </th>
-                                            <td> <?php echo $row['nl_chatxo'];?></td>
+                                            <td> <?php echo $row['chat_xo'];?></td>
                                         </tr>
                                         <tr>
                                             <th>Chất bột đường: </th>
-                                            <td> <?php echo $row['nl_chatbotduong'];?></td>
+                                            <td> <?php echo $row['chat_botduong'];?></td>
                                         </tr>
                                         <tr>
                                             <th>Vitamin: </th>
-                                            <td> <?php echo $row['nl_vitamin'];?></td>
+                                            <td> <?php echo $row['vitamin'];?></td>
                                         </tr>
                                         <tr>
                                             <th>Khoáng chất: </th>
-                                            <td> <?php echo $row['nl_khoangchat'];?></td>
+                                            <td> <?php echo $row['khoang_chat'];?></td>
                                         </tr>   
                                         </tr>
                                     </table>

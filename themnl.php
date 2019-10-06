@@ -240,7 +240,7 @@
                                         </div>
                                     </div>
                                 
-                                <div class="form-group"><label class=" form-control-label">Khối lượng</label><input type="text" name="nl_khoiluong" placeholder="Nhập khối lượng" class="form-control"></div>
+                                <div class="form-group"><label class=" form-control-label">Khối lượng</label><input type="text" name="khoi_luong" placeholder="Nhập khối lượng" class="form-control"></div>
 
                                 <div class="row form-group">
                                         <div class="col col-md-3"><label class=" form-control-label">Đơn vị tính</label></div>
@@ -261,13 +261,13 @@
                                      <div class="form-group"><label class=" form-control-label">Hình ảnh</label><input type="file" name="nl_hinhanh" class="form-control"></div>
                                     <label>Thành phần dinh dưỡng</label>
                                      <div class="row form-group">
-                                    <div class="col-6"><label class=" form-control-label">Chất đạm</label><input type="text" name="nl_chatdam" placeholder="" class="form-control"></div>
-                                    <div class="col-6"><label class=" form-control-label">Chất béo</label><input type="text" name="nl_chatbeo" placeholder="" class="form-control"></div>
-                                     <div class="col-6"><label class=" form-control-label">Chất bột đường</label><input type="text" name="nl_chatbotduong" placeholder="" class="form-control"></div>
-                                    <div class="col-6"><label class=" form-control-label">Chất xơ</label><input type="text" name="nl_chatxo" placeholder="" class="form-control"></div>
-                                     <div class="col-6"><label class=" form-control-label">Vitamin</label><input type="text" name="nl_vitamin" placeholder="A:20; B:45;..." class="form-control"></div>
+                                    <div class="col-6"><label class=" form-control-label">Chất đạm</label><input type="text" name="chat_dam" placeholder="" class="form-control"></div>
+                                    <div class="col-6"><label class=" form-control-label">Chất béo</label><input type="text" name="chat_beo" placeholder="" class="form-control"></div>
+                                     <div class="col-6"><label class=" form-control-label">Chất bột đường</label><input type="text" name="chat_botduong" placeholder="" class="form-control"></div>
+                                    <div class="col-6"><label class=" form-control-label">Chất xơ</label><input type="text" name="chat_xo" placeholder="" class="form-control"></div>
+                                     <div class="col-6"><label class=" form-control-label">Vitamin</label><input type="text" name="vitamin" placeholder="A:20; B:45;..." class="form-control"></div>
 
-                                    <div class="col-6"><label class=" form-control-label">Khoáng chất</label><input type="text" name="nl_khoangchat" placeholder="Sắt:55, kẽm:100;..." class="form-control"></div>
+                                    <div class="col-6"><label class=" form-control-label">Khoáng chất</label><input type="text" name="khoang_chat" placeholder="Sắt:55, kẽm:100;..." class="form-control"></div>
                                     <div class="col-19"><i><font color="gray"><label for="khoiluong" class=" form-control-label">Quy tắc nhập: Tên:số lượng và mỗi loại cách nhau bởi dấu ";"</label></font></i></div>
                                     <div class="col-9"><i><font color="gray"><label for="khoiluong" class=" form-control-label">Ví dụ: A:20; Sắt:40;...</label></font></i></div>
                                 </div>

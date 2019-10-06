@@ -275,7 +275,7 @@
                                                 
                                                 <td class=" last" style="width: 120px;">
                                                 <!-- xu ly button  -->
-                                                    <span style="font-size: 12px"><a href="#" onclick="return confirm('Bạn có thật sự muốn thay đổi thông tin này?')">Cập nhật</a>|</span>
+                                                    <span style="font-size: 12px"><?php echo "<a href='capnhatloaidd.php?id=".$row['loaidd_id']."'>Cập nhật</a>|"?></span>
                                                     <span style="font-size: 12px"><?php echo "<a href='xoadd.php?id=".$row['loaidd_id']."'>Xóa</a>"?></span>
                                                     
                                                 </td>

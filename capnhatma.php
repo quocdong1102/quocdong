@@ -1,3 +1,4 @@
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -72,7 +73,7 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li >
+                     <li >
                         <a href="index.php"><i class="menu-icon fa fa-laptop"></i>Trang chủ</a>
                     </li>
                     <li class="menu-title">Món ăn</li><!-- /.menu-title -->
@@ -94,7 +95,7 @@
                     <li>
                         <a href="loainl.php"> <i class="menu-icon fa fa-glass"></i> Loại nguyên liệu</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="loaima.php"> <i class="menu-icon fa fa-birthday-cake"></i> Loại món ăn</a>
                     </li>
 
@@ -107,7 +108,7 @@
                     </li>
                    
                     <li class="menu-title">Thành phần dinh dưỡng</li><!-- /.menu-title -->
-                    <li class="active">
+                    <li>
                         <a href="themdinhduong.php"> <i class="menu-icon fa fa-tint"></i> Thêm mới</a>
                     </li>
                     <li>
@@ -189,7 +190,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Thành phần dinh dưỡng</h1>
+                                <h1>Món ăn</h1>
                             </div>
                         </div>
                     </div>
@@ -198,8 +199,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="index.html">Trang chủ</a></li>
-                                    <li><a href="#">Thành phần dinh dưỡng</a></li>
-                                    <li class="active">Thêm mới</li>
+                                    <li><a href="#">Danh mục</a></li>
+                                    <li class="active">Món ăn</li>
                                 </ol>
                             </div>
                         </div>
@@ -216,22 +217,34 @@
                
                 
 
- 
 <div class="col-lg-6">
+
+                                    <?php
+                                    include('connect.php');
+                                    $id=isset($_GET['id']) ? $_GET['id']:'$id';
+                                    $sql = "SELECT * FROM loai_nguyen_lieu where loai_nguyen_lieu.loainl_id='$id' ";
+                                    $result = mysqli_query($con, $sql);
+                                    $row = mysqli_fetch_array($result);
+                                    ?>
                         <div class="card">
-                            <div class="card-header"><strong>Thành phần dinh dưỡng</strong></div>
+                            <div class="card-header"><strong>Loại nguyên liệu</strong></div>
                             <div class="card-body card-block">
-                                <form class="form-horizontal form-label-left input_mask" action="XL_themdd.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
-                                <div class="form-group"><label class=" form-control-label">Tên loại dinh dưỡng</label><input type="text" class="form-control" name="loaidd_ten" required="required" placeholder="Nhập tên loại dinh dưỡng"></div>
-                                <div class="form-group"><label class=" form-control-label">Vai trò</label><textarea name="loaidd_vaitro" rows="9" placeholder="Vai trò của chất dinh dưỡng" class="form-control"></textarea></div>
+                                <form class="form-horizontal form-label-left input_mask" action="XL_capnhatloainl.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+                                    <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+                                <div class="form-group"><label class=" form-control-label">Tên loại nguyên liệu</label><input type="text" name="loainl_ten" placeholder="Nhập tên loại" class="form-control" value="<?php echo $row['loainl_ten'];  ?>" require=""></div>
+                                
+                                <div class="form-group"><label class=" form-control-label">Ghi chú</label><input type="text" name="loainl_ghichu" placeholder="Nhập ghi chú" class="form-control" value="<?php echo $row['loainl_ghichu'];  ?>" require=""></div>
+                                
+                                
                                
-                            <div class="form-actions form-group"><button type="submit" name="submit" class="btn btn-primary btn-sm">Lưu</button> <button type="reset" class="btn btn-sm btn-danger">Hủy</button></div> 
+                            <div class="form-actions form-group"><button type="submit" name="submit" class="btn btn-primary btn-sm">Lưu</button> <button class="btn btn-danger btn-sm" type="reset">Hủy</button></div> 
                             </form>
-                            
                             </div>
                         </div>
 
                     </div>
+
+ 
 
 
 

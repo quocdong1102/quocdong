@@ -64,6 +64,51 @@
         }
 
     </style>
+<link href="fSelect.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="fSelect.js"></script>
+<script>
+(function($) {
+    $(function() {
+   $('.multi-select-dd').fSelect({
+    placeholder: 'Chọn ',
+    numDisplayed: 4,
+    overflowText: '{n} selected',
+    searchText: 'Tìm ',
+    showSearch: true
+});
+    });
+})(jQuery);
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var i=1;
+        $('#add').click(function(){
+            i++;
+            $('#number-counter').val(i);
+            $('.list-group').append('<li class="list-group-item " id="item'+i+'"><div class="form-group"> <label for="name">Bước&nbsp</label><span class="number-counter">'+i+'</span><textarea rows="9" type="text" name="ct_cachlam_'+i+'" id="name" class="form-control name_list"></textarea></div><div class="form-group"> <label class="form-control-label">Thêm hình ảnh</label><input type="file" name="ct_hinhanh_'+i+'" class="form-control"></div></div> <div class="form-group"> <button name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>                     </div></li> '); 
+        });
+        $(document).on('click','.btn_remove',function(){
+                var button_id = $(this).attr("id");
+                $('#item'+button_id+"").remove();   
+                i--;        
+                $('#number-counter').val(i);
+        });
+        $('#submit').click(function(){
+            $ajax({
+                // url:"act.add_CTKM.php",
+                method:"post",
+                data:$('#add_name').serialize(),
+                success:function(data){
+                    alert(data);
+                    $('#add_name')[0].reset();
+                }
+            });
+        });
+    });
+   </script>
+
 </head>
 
 <body>
@@ -163,65 +208,7 @@
                                 <i class="fa fa-bell"></i>
                                 <!--<span class="count bg-danger">3</span>-->
                             </button>
-                           <!-- <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">You have 3 Notification</p>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-check"></i>
-                                    <p>Server #1 overloaded.</p>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-info"></i>
-                                    <p>Server #2 overloaded.</p>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-warning"></i>
-                                    <p>Server #3 overloaded.</p>
-                                </a>
-                            </div>-->
-                        </div>
-                        <!--
-                        <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-envelope"></i>
-                                <span class="count bg-primary">4</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jonathan Smith</span>
-                                        <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/2.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Jack Sanders</span>
-                                        <span class="time float-right">5 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/3.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Cheryl Wheeler</span>
-                                        <span class="time float-right">10 minutes ago</span>
-                                        <p>Hello, this is an example msg</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item media" href="#">
-                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/4.jpg"></span>
-                                    <div class="message media-body">
-                                        <span class="name float-left">Rachel Santos</span>
-                                        <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div> -->
+                           
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -239,155 +226,309 @@
             </div>
         </header>
         <!-- /#header -->
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Công thức</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><a href="index.php">Trang chủ</a></li>
+                                    <li><a href="#">Công thức</a></li>
+                                    <li class="active">Thêm mới</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Content -->
         <div class="content">
-            <!-- Animated -->
-            <div class="animated fadeIn">
-                <!-- Widgets  -->
-                <!--<div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-1">
-                                        <i class="pe-7s-cash"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text">$<span class="count">23569</span></div>
-                                            <div class="stat-heading">Revenue</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-cart"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">3435</span></div>
-                                            <div class="stat-heading">Sales</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-3">
-                                        <i class="pe-7s-browser"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">349</span></div>
-                                            <div class="stat-heading">Templates</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-4">
-                                        <i class="pe-7s-users"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">2986</span></div>
-                                            <div class="stat-heading">Clients</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- /Widgets -->
-                <!--  Traffic  -->
-                <!--
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="box-title">Traffic </h4>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="card-body">
-                                        
-                                        <div id="traffic-chart" class="traffic-chart"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card-body">
-                                        <div class="progress-box progress-1">
-                                            <h4 class="por-title">Visits</h4>
-                                            <div class="por-txt">96,930 Users (40%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Bounce Rate</h4>
-                                            <div class="por-txt">3,220 Users (24%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Unique Visitors</h4>
-                                            <div class="por-txt">29,658 Users (60%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Targeted  Visitors</h4>
-                                            <div class="por-txt">99,658 Users (90%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                </div>
-                            </div> 
-                            <div class="card-body"></div>
-                        </div>
-                    </div>
-                </div> -->
-                <!--  /Traffic -->
+            
+         <div class="animated fadeIn">
+                
                
-                <!-- Calender Chart Weather  -->
-                <div class="row">
-                    <div class="col-md-12 col-lg-4">
+<div class="col-lg-6">
                         <div class="card">
-                            <div class="card-body">
-                                <!-- <h4 class="box-title">Chandler</h4> -->
-                                <div class="calender-cont widget-calender">
-                                    <div id="calendar"></div>
+                            <div class="card-header"><strong>Công thức</strong></div>
+                            <div class="card-body card-block">
+                            <form class="form-horizontal form-label-left input_mask" action="XL_themct.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+                                
+                                  <div class="row form-group">
+                                     <div class="col col-md-6"><label for="select" class=" form-control-label">Món ăn</label></div>
+                                    <table>
+                                        <tr><td><div class="col-12 col-md-9">
+                                            <select class="multi-select-dd"  name="ma_id" required="" />
+                                          <?php
+                                            include('connect.php');
+                                            $sql="SELECT * FROM mon_an ";
+                                            $result = mysqli_query($con,$sql);
+                                            while($row=mysqli_fetch_array($result)){
+                                                echo"<option value='".$row['ma_id']."'>".$row['ma_ten']."</option>";
+                                            }
+                                            ?>
+
+                                          </select>
+
+                                        </div></td>
+                                        <td><button type="button" class="btn btn-info btn-lg vung_mien" data-toggle="modal" data-target="#myModal">+</button></td></tr>
+                                    </table>
                                 </div>
+                                
+                                <div class="row form-group">
+                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Độ khó</label></div>
+                                        <div class="col-12 col-md-9">
+                                            <select name="dokho_id" class="form-control" required="" />
+                                              <option value="">Chọn mức độ</option>
+                                              <option value="1">Dễ</option>
+                                              <option value="2">Trung bình</option>
+                                              <option value="3">Khó</option>
+                                              
+                                            </select> 
+                                        </div>
+                                </div>
+                                
+
+
+
+                                <div class="form-group"><label class=" form-control-label">Thời gian thực hiện (phút)</label><input type="text" name="ct_tgthuchien" placeholder="Nhập thời gian" class="form-control"></div>
+
+                                 <div class="form-group"><label class=" form-control-label">Khẩu phần ăn</label><input type="text" name="ct_khauphanan" placeholder="Nhập số lượng người ăn" class="form-control"></div>
+
+                                 <div class="form-group"><label class=" form-control-label">Nguyên liệu</label><textarea name="ct_nguyenlieu" rows="9" placeholder="Nhập nguyên liệu" class="form-control"></textarea></div>
+                                  <div class="col-19"><div class="desc" style="font-size:13px;">
+                    <a href="javascript:void(0);" class="btn-instruction" target="_self" ng-click="showInputIngredientInstruction = !showInputIngredientInstruction">
+                        <span ng-hide="showInputIngredientInstruction" class="ng-hide"><i class="fa fa-question-circle" aria-hidden="true"></i> Hướng dẫn nhập</span>
+                        <!-- <span ng-show="showInputIngredientInstruction" class=""><i class="fa fa-check-circle" aria-hidden="true"></i> Đã hiểu</span> -->
+                    </a>
+                    <div ng-show="showInputIngredientInstruction" style="padding: 10px 0;" class="">
+                        <div>Gợi ý:</div>
+                        <div>
+                            <ul style="padding-left: 24px;">
+                                <li>Quy cách nhập: <span class="note-gray-highlight">định_lượng</span> <span class="note-gray-highlight">đơn_vị_tính</span> <span class="note-gray-highlight">tên_nguyên_liệu</span> <span class="note-gray-highlight">( ghi_chú )</span></li>
+                                <li>định_lượng: số lượng; đơn_vị_tính: gram, lít, cái...; tên_nguyên_liệu: tên nguyên liệu; ghi_chú: diễn giải nếu có </li>
+                               
+                                <li>
+                                    
+                                    <ul>
+                                        <li>Nhập nguyên liệu ngăn cách nhau bằng dấu phẩy (,) hoặc chấm phẩy (;) và bấm <b>enter</b></li>
+                                        <li>ví dụ: <span class="note-gray-highlight">1/4 con gà; 3 trái ớt (đỏ); 1 lít nước</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                                </div>
+
+                                <div class="form-group"><label class=" form-control-label">CÁCH LÀM</label>
+                            <div class="panel panel-default">
+                              
+                              <div class="panel-body">
+                                <input type="hidden" name="number_counter" id="number-counter" value="1">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="form-group">
+                                          <label for="name">Bước&nbsp</label><span class='number-counter'>1</span>
+
+                                          <textarea rows="9" type="text" name="ct_cachlam_1" id="name" class="form-control name_list"></textarea>
+                                        </div>
+                                        <div class="form-group"> 
+                                            <label class="form-control-label">Thêm hình ảnh</label>
+                                            <input type="file" name="ct_hinhanh_1" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <button name="remove" id="1" class="btn btn-danger btn_remove">X</button>
+                                        </div>
+                                      </div>
+                                    </li>
+                                </ul>
+                              </div>
                             </div>
-                        </div><!-- /.card -->
+                        
+                            <table class="table" id="dynamic_field" border="0">
+                                 
+                                <tr >
+                                    <td></td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </table> 
+                            <table class="table" id="dynamic_field" border="0">
+                                 <tr><td>
+
+                                <button type="button" name="add" id="add" class="btn btn-success">Thêm bước</button>
+                                     </td></tr>
+                            </table>
+                        
+
+                     </div>
+
+                
+
+                                
+
+
+                    
+                                <input type="hidden" name="submit" value="submit">
+                            <div class="form-actions form-group"><button type="submit"  class="btn btn-primary btn-sm">Lưu</button> <button type="cancel" class="btn btn-sm btn-danger">Hủy</button></div> 
+                           </form> 
+                            </div>
+                        </div>
+
                     </div>
 
-                   
-                </div>
-                <!-- /Calender Chart Weather -->
+
+
+
+
+                    <form class="form-horizontal form-label-left input_mask" action="XL_themma.php" method="POST"enctype="multipart/form-data" accept-charset="utf-8">
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thêm món ăn</h4>
+        </div>
+        <div class="modal-body">
+       
+          <div class="form-group"><labelclass=" form-control-label">Tên món ăn</label><input type="text" name="ma_ten" placeholder="Nhập tên món ăn" class="form-control"></div>
+                                <div class="form-group"><label class=" form-control-label">KCAL</label><input type="text" name="ma_kcal" placeholder="Nhập kcal" class="form-control"></div>
+                                <div class="row form-group">
+                                        <div class="col col-md-6"><label class=" form-control-label">Loại món</label></div>
+                                        <div class="col-12 col-md-9">
+                                            <select name="loaima_id" class="form-control" required="" />
+                                              <option value="">Chọn loại món ăn</option>
+                                              <a href="">Thêm món ăn khác</a>
+                                              <?php
+                                                include('connect.php');
+                                                $sql = "SELECT * FROM loai_mon_an";
+                                                $result = mysqli_query($con,$sql);
+                                                while ($row = mysqli_fetch_array($result)) {
+                                                  echo "<option value='".$row['loaima_id']."'>".$row['loaima_ten']."</option>";
+                                                }
+                                            ?>
+                                            </select> 
+                                        </div>
+                                </div>
+                                <div class="row form-group">
+                                     <div class="col col-md-6"><label for="select" class=" form-control-label">Vùng miền</label></div>
+                                   <div class="col-12 col-md-9">
+                                            <select class="multi-select-dd" multiple="multiple" name='vm_id[]' required="" />
+                                          <?php
+                                            include('connect.php');
+                                            $sql="SELECT * FROM vung_mien ";
+                                            $result = mysqli_query($con,$sql);
+                                            while($row=mysqli_fetch_array($result)){
+                                                echo"<option value='".$row['vm_id']."'>".$row['vm_ten']."</option>";
+                                            }
+                                            ?>
+
+                                          </select>
+
+                                        </div>
+                                </div>
+                                 <div class="row form-group">
+                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Mùa</label></div>
+                                        <div class="col-12 col-md-9">
+                                            <select class="multi-select-dd" multiple="multiple" name='mua_id[]' required="" />
+                                          <?php
+                                            include('connect.php');
+                                            $sql="SELECT * FROM mua ";
+                                            $result = mysqli_query($con,$sql);
+                                            while($row=mysqli_fetch_array($result)){
+                                                echo"<option value='".$row['mua_id']."'>".$row['mua_ten']."</option>";
+                                            }
+                                            ?>
+                                          </select>
+                                        </div>
+                                </div>
+                                <div class="row form-group">
+                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Độ tuổi phù hợp</label></div>
+                                        <div class="col-12 col-md-9">
+                                            <select name="dotuoi_id" class="form-control" required="" />
+                                              <option value="">Chọn độ tuổi</option>
+                                              <?php
+                                                include('connect.php');
+                                                $sql = "SELECT * FROM do_tuoi";
+                                                $result = mysqli_query($con,$sql);
+                                                while ($row = mysqli_fetch_array($result)) {
+                                                  echo "<option value='".$row['dotuoi_id']."'>".$row['dotuoi_tuoi']."</option>";
+                                                }
+                                            ?>
+                                            </select> 
+                                        </div>
+                                </div>
+                                <div class="row form-group">
+                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Sức khỏe phù hợp</label></div>
+                                        <div class="col-12 col-md-9">
+                                            <select class="multi-select-dd" multiple="multiple" name='sk_id[]' required="" />
+                                          <?php
+                                            include('connect.php');
+                                            $sql1="SELECT * FROM suc_khoe ";
+                                            $result1 = mysqli_query($con,$sql1);
+                                            while($row=mysqli_fetch_array($result1)){
+                                                echo"<option value='".$row['sk_id']."'>".$row['sk_loaisk']."</option>";
+                                            }
+                                            ?>
+                                          </select>
+                                        </div>
+                                </div>
+                               <div class="row form-group">
+                                        <div class="col col-md-6"><label for="select" class=" form-control-label">Thời điểm phù hợp</label></div>
+                                        <div class="col-12 col-md-9">
+                                            <select class="multi-select-dd" multiple="multiple" name='td_id[]' required="" />
+                                          <?php
+                                            include('connect.php');
+                                            $sql1="SELECT * FROM thoi_diem ";
+                                            $result1 = mysqli_query($con,$sql1);
+                                            while($row=mysqli_fetch_array($result1)){
+                                                echo"<option value='".$row['td_id']."'>".$row['td_ten']."</option>";
+                                            }
+                                            ?>
+                                          </select>
+                                        </div>
+                                </div>
+                               
+
+                                
+                                     <div class="form-group"><label class=" form-control-label">Hình ảnh</label><input type="file" name="ma_hinhanh" class="form-control"></div>
+                                    <input type="hidden" name="submit">
+                                </div>
+
+
+
+
+        <div class="modal-footer">
+          <button type="submit" name="submit" class="btn btn-primary btn-sm" >Lưu</button>
+          <button type="submit" class="btn btn-sm" data-dismiss="modal">Hủy</button>
+       
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</form>
+
+
+
+
+
+
+
+
                
         <!-- /.content -->
         <div class="clearfix"></div>

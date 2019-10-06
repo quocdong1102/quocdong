@@ -214,7 +214,7 @@
                                     <?php
                                     $stt=1;
                                     include('connect.php');
-                                    $sql = "SELECT * FROM nguyen_lieu ";
+                                    $sql = "SELECT DISTINCT nguyen_lieu.nl_id, nguyen_lieu.nl_ten, loai_nguyen_lieu.loainl_ten FROM nguyen_lieu, don_vi_tinh, loai_nguyen_lieu, chitiet_nguyenlieu where chitiet_nguyenlieu.dvt_id=don_vi_tinh.dvt_id and nguyen_lieu.loainl_id=loai_nguyen_lieu.loainl_id ";
 
                                     $result = mysqli_query($con, $sql);
                                     $row = mysqli_fetch_array($result);
@@ -247,7 +247,7 @@
                                              $stt=1;
                                              include('connect.php');
                                              $sotinmottrang = 7;
-                                             $sql="SELECT *FROM nguyen_lieu";
+                                             $sql="SELECT DISTINCT nguyen_lieu.nl_id, nguyen_lieu.nl_ten, loai_nguyen_lieu.loainl_ten FROM nguyen_lieu, don_vi_tinh, loai_nguyen_lieu, chitiet_nguyenlieu where chitiet_nguyenlieu.dvt_id=don_vi_tinh.dvt_id and nguyen_lieu.loainl_id=loai_nguyen_lieu.loainl_id";
                                              $result = mysqli_query($con,$sql);
                                              //Tong so tin trong bang
                                              $tongsotin = mysqli_num_rows($result);
@@ -265,7 +265,7 @@
                                                //xu ly trang click trang
                                                $start = ($tranghientai - 1) * $sotinmottrang;
                                                if($tongsotin > 0){
-                                               $result = mysqli_query($con, "SELECT * FROM nguyen_lieu, don_vi_tinh, loai_nguyen_lieu where nguyen_lieu.dvt_id=don_vi_tinh.dvt_id and nguyen_lieu.loainl_id=loai_nguyen_lieu.loainl_id");
+                                               $result = mysqli_query($con, "SELECT DISTINCT nguyen_lieu.nl_id, nguyen_lieu.nl_ten, loai_nguyen_lieu.loainl_ten FROM nguyen_lieu, don_vi_tinh, loai_nguyen_lieu, chitiet_nguyenlieu where chitiet_nguyenlieu.dvt_id=don_vi_tinh.dvt_id and nguyen_lieu.loainl_id=loai_nguyen_lieu.loainl_id");
                                               
                                                while ($row = mysqli_fetch_array($result)){                                     
                                             ?>
